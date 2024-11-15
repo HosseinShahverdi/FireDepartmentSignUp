@@ -2,8 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 
 
-
-
 namespace fDSignUp.Models
 {
 
@@ -18,14 +16,16 @@ namespace fDSignUp.Models
 
 public enum BasijStatus
 {
+    [Display(Name = "ندارم")]
+    None,
+
     [Display(Name = "عادی")]
     Normal,
 
     [Display(Name = "فعال")]
     Active,
 
-    [Display(Name = "ندارم")]
-    None,
+    
 }
 public enum VeteranStatus
 {
@@ -70,6 +70,7 @@ public enum EducationLevel{
         [Required]
         public int? NumberOfChildren { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
 
@@ -79,20 +80,33 @@ public enum EducationLevel{
         [Required]
         public BasijStatus? BasijStatus { get; set; }
 
+        [Required]
         public EducationLevel? EducationLevel { get; set; }
 
+        [Required]
         public string? HomeAddress { get; set; }
 
+        [Required]
         public string? HomePhoneNumber { get; set; }
 
+        [Required]
         public string? MobileNumber { get; set; }
 
+        [Required]
         public string? FieldOfStudy { get; set; }
+
+        [Required]
         public string? PlaceOfIssue { get; set; }
+
+        [Required]
         public string? PlaceOfBirth { get; set; }
 
+        
+        [Required]
         public VeteranStatus? VeteranStatus { get; set; }
 
+        
+        [Required]
         public int? ServiceReductionDuration { get; set; }
 
         [Display(Name = "محل الصاق عکس")]
