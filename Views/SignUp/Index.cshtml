@@ -1,0 +1,158 @@
+﻿@model fDSignUp.Models.SignUpModel
+
+<div class="max-w-5xl mx-auto mt-10 p-8 bg-white shadow-md rounded-md" dir="rtl">
+    <!-- Header Section with Fire-Themed Background -->
+    <header class="bg-red-600 text-white p-12 rounded-md mb-6 w-full">
+        <h1 class="text-3xl font-bold text-center">ثبت‌نام اولیه سرباز امریه آتش‌نشانی تبریز</h1>
+        <p class="text-center mt-2">لطفاً اطلاعات زیر را با دقت مطالعه نموده و موارد خواسته شده را پر کنید.</p>
+    </header>
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <!-- Full Name -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">نام و نام خانوادگی</label>
+                <input type="text" asp-for="FullName" placeholder="برای مثال: حسین شاهوردی" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="FullName" class="text-red-600"></span>
+            </div>
+
+            <!-- Father Name -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">نام پدر</label>
+                <input type="text" asp-for="FatherName" placeholder="نام پدر" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="FatherName" class="text-red-600"></span>
+            </div>
+
+            <!-- National ID -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">کد ملی</label>
+                <input type="text" asp-for="NationalID" placeholder="123456789" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="NationalID" class="text-red-600"></span>
+            </div>
+
+            <!-- Place of Issue -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">محل صدور</label>
+                <input type="text" asp-for="PlaceOfIssue" placeholder=" محل صدور شناسنامه" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="PlaceOfIssue" class="text-red-600"></span>
+            </div>
+
+            <!-- Birth Date (Solar Calendar) -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">تاریخ تولد</label>
+                <input type="text" asp-for="BirthDate" id="birthDatePicker" placeholder="تاریخ تولد" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="BirthDate" class="text-red-600"></span>
+            </div>
+
+            <!-- Place of Birth -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">محل تولد</label>
+                <input type="text" asp-for="PlaceOfBirth" placeholder="محل تولد" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="PlaceOfBirth" class="text-red-600"></span>
+            </div>
+
+            <!-- Marital Status -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">وضعیت تاهل</label>
+                <select asp-for="MaritalStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.MaritalStatus>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                </select>
+                <span asp-validation-for="MaritalStatus" class="text-red-600"></span>
+            </div>
+
+            <!-- Number of Children -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">تعداد فرزند</label>
+                <input type="number" asp-for="NumberOfChildren" placeholder="تعداد فرزند" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="NumberOfChildren" class="text-red-600"></span>
+            </div>
+
+            <!-- Education Level -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">مدرک تحصیلی</label>
+                <select asp-for="EducationLevel" asp-items="Html.GetEnumSelectList<fDSignUp.Models.EducationLevel>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                </select>
+                <span asp-validation-for="EducationLevel" class="text-red-600"></span>
+            </div>
+
+            <!-- Field of Study -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">رشته تحصیلی</label>
+                <input type="text" asp-for="FieldOfStudy" placeholder="آخرین رشته تحصیلی را وارد کنید " class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="FieldOfStudy" class="text-red-600"></span>
+            </div>
+
+            <!-- Mobile Number -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">شماره موبایل</label>
+                <input type="tel" asp-for="MobileNumber" placeholder="09141234567 " class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="MobileNumber" class="text-red-600"></span>
+            </div>
+
+            <!-- Home Phone Number -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">شماره تلفن منزل</label>
+                <input type="tel" asp-for="HomePhoneNumber" placeholder="0413123456  " class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="HomePhoneNumber" class="text-red-600"></span>
+            </div>
+
+            <!-- Home Address -->
+            <div class="md:col-span-2">
+                <label class="block mb-2 text-gray-800 font-bold text-right">آدرس منزل</label>
+                <input type="text" asp-for="HomeAddress" placeholder="آدرس محل سکونت را به صورت کامل همراه با ذکر شماره وارد نمایید " class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="HomeAddress" class="text-red-600"></span>
+            </div>
+
+            <!-- Veteran Status -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">وضعیت ایثارگری</label>
+                <select asp-for="VeteranStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.VeteranStatus>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                </select>
+                <span asp-validation-for="VeteranStatus" class="text-red-600"></span>
+            </div>
+
+            <!-- Basij Status -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">نوع بسیجی</label>
+                <select asp-for="BasijStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.BasijStatus>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                </select>
+                <span asp-validation-for="BasijStatus" class="text-red-600"></span>
+            </div>
+
+            <!-- Service Reduction Duration -->
+            <div>
+                <label class="block mb-2 text-gray-800 font-bold text-right">مدت زمان کسری</label>
+                <input type="number" asp-for="ServiceReductionDuration" placeholder=" مدت زمان کسری خود را به صورت تعداد روز وارد نمایید " class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="ServiceReductionDuration" class="text-red-600"></span>
+            </div>
+
+            <!-- Upload Photo -->
+            <div class="md:col-span-2">
+                <label class="block mb-2 text-gray-800 font-bold text-right">محل الصاق عکس</label>
+                <input type="file" asp-for="Photo" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                <span asp-validation-for="Photo" class="text-red-600"></span>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-8 text-center">
+            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-md transition-transform focus:transform focus:scale-105">
+                ارسال
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/js/persian-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/css/persian-datepicker.min.css">
+
+<script>
+    $(document).ready(function () {
+        // Use Persian datepicker for the Birth Date
+        $("#birthDatePicker").persianDatepicker({
+            format: 'YYYY/MM/DD',
+            initialValue: false,
+            autoClose: true
+        });
+    });
+</script>
