@@ -1,68 +1,68 @@
 ﻿@model fDSignUp.Models.SignUpModel
 
-<!-- Include jQuery Script for Proper Dependency -->
+<!-- Include jQuery and Kama Datepicker Scripts and Styles -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="~/lib/kamadatepicker/kamadatepicker.min.css" />
+<script src="~/lib/kamadatepicker/kamadatepicker.min.js"></script>
 
-<!-- Add Persian Datepicker -->
-<script src="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/js/persian-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/css/persian-datepicker.min.css">
+
 
 <header class="bg-red-600 text-white p-4 rounded-md mb-4 w-full">
     <h1 class="text-3xl font-bold text-center">ثبت‌نام اولیه سرباز امریه آتش‌نشانی تبریز</h1>
-    <p class="text-center mt-2">لطفاً اطلاعات زیر را با دقت مطالعه نموده و موارد خواسته شده را پر کنید </p>
+    <p class="text-center mt-2">لطفاً اطلاعات زیر را با دقت مطالعه نموده و موارد خواسته شده را پر کنید</p>
 </header>
 
 <body>
     <div class="max-w-5xl mx-auto mt-5 p-4 bg-white shadow-md rounded-md" dir="rtl">
-        <form method="post" enctype="multipart/form-data">
+        @using (Html.BeginForm("Index", "SignUp", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                @{
+                    var inputClasses = "w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500";
+                }
 
                 <!-- Full Name -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">نام و نام خانوادگی</label>
-                    <input type="text" asp-for="FullName" placeholder="برای مثال: حسین شاهوردی" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="text" asp-for="FullName" placeholder="برای مثال: حسین شاهوردی" class="@inputClasses" />
                     <span asp-validation-for="FullName" class="text-red-600"></span>
                 </div>
 
                 <!-- Father Name -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">نام پدر</label>
-                    <input type="text" asp-for="FatherName" placeholder="نام پدر" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="text" asp-for="FatherName" placeholder="نام پدر" class="@inputClasses" />
                     <span asp-validation-for="FatherName" class="text-red-600"></span>
                 </div>
 
                 <!-- National ID (Convert Input to Persian Digits) -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">کد ملی</label>
-                    <input type="text" asp-for="NationalID" id="nationalId" placeholder="123456789" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="text" asp-for="NationalID" id="nationalId" placeholder="123456789" class="@inputClasses" />
                     <span asp-validation-for="NationalID" class="text-red-600"></span>
                 </div>
 
                 <!-- Place of Issue -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">محل صدور</label>
-                    <input type="text" asp-for="PlaceOfIssue" placeholder="محل صدور شناسنامه" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="text" asp-for="PlaceOfIssue" placeholder="محل صدور شناسنامه" class="@inputClasses" />
                     <span asp-validation-for="PlaceOfIssue" class="text-red-600"></span>
                 </div>
+
+                <!-- Place of Birth -->
+                <input type="text" asp-for="BirthDate" id="birthDatePicker" placeholder="تاریخ تولد" class="@inputClasses" />
 
                 <!-- Birth Date (Solar Calendar) -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">تاریخ تولد</label>
-                    <input type="text" asp-for="BirthDate" id="birthDatePicker" placeholder="تاریخ تولد" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="text" asp-for="BirthDate" id="birthDatePicker" placeholder="تاریخ تولد" class="@inputClasses" />
                     <span asp-validation-for="BirthDate" class="text-red-600"></span>
-                </div>
-
-                <!-- Place of Birth -->
-                <div>
-                    <label class="block mb-2 text-gray-800 font-bold text-right">محل تولد</label>
-                    <input type="text" asp-for="PlaceOfBirth" placeholder="محل تولد" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
-                    <span asp-validation-for="PlaceOfBirth" class="text-red-600"></span>
                 </div>
 
                 <!-- Marital Status -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">وضعیت تاهل</label>
-                    <select asp-for="MaritalStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.MaritalStatus>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                    <select asp-for="MaritalStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.MaritalStatus>()" class="@inputClasses">
                     </select>
                     <span asp-validation-for="MaritalStatus" class="text-red-600"></span>
                 </div>
@@ -70,14 +70,14 @@
                 <!-- Number of Children -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">تعداد فرزند</label>
-                    <input type="number" asp-for="NumberOfChildren" placeholder="تعداد فرزند" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="number" asp-for="NumberOfChildren" placeholder="تعداد فرزند" class="@inputClasses" />
                     <span asp-validation-for="NumberOfChildren" class="text-red-600"></span>
                 </div>
 
                 <!-- Education Level -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">مدرک تحصیلی</label>
-                    <select asp-for="EducationLevel" asp-items="Html.GetEnumSelectList<fDSignUp.Models.EducationLevel>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                    <select asp-for="EducationLevel" asp-items="Html.GetEnumSelectList<fDSignUp.Models.EducationLevel>()" class="@inputClasses">
                     </select>
                     <span asp-validation-for="EducationLevel" class="text-red-600"></span>
                 </div>
@@ -85,35 +85,35 @@
                 <!-- Field of Study -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">رشته تحصیلی</label>
-                    <input type="text" asp-for="FieldOfStudy" placeholder="آخرین رشته تحصیلی را وارد کنید" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="text" asp-for="FieldOfStudy" placeholder="آخرین رشته تحصیلی را وارد کنید" class="@inputClasses" />
                     <span asp-validation-for="FieldOfStudy" class="text-red-600"></span>
                 </div>
 
                 <!-- Mobile Number (Convert Input to Persian Digits) -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">شماره موبایل</label>
-                    <input type="tel" asp-for="MobileNumber" id="mobileNumber" placeholder="09141234567" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="tel" asp-for="MobileNumber" id="mobileNumber" placeholder="09141234567" class="@inputClasses" />
                     <span asp-validation-for="MobileNumber" class="text-red-600"></span>
                 </div>
 
                 <!-- Home Phone Number -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">شماره تلفن منزل</label>
-                    <input type="tel" asp-for="HomePhoneNumber" id="homePhoneNumber" placeholder="0413123456" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="tel" asp-for="HomePhoneNumber" id="homePhoneNumber" placeholder="0413123456" class="@inputClasses" />
                     <span asp-validation-for="HomePhoneNumber" class="text-red-600"></span>
                 </div>
 
                 <!-- Home Address -->
                 <div class="md:col-span-2">
                     <label class="block mb-2 text-gray-800 font-bold text-right">آدرس منزل</label>
-                    <input type="text" asp-for="HomeAddress" placeholder="آدرس محل سکونت را به صورت کامل وارد کنید" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="text" asp-for="HomeAddress" placeholder="آدرس محل سکونت را به صورت کامل وارد کنید" class="@inputClasses" />
                     <span asp-validation-for="HomeAddress" class="text-red-600"></span>
                 </div>
 
                 <!-- Veteran Status -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">وضعیت ایثارگری</label>
-                    <select asp-for="VeteranStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.VeteranStatus>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                    <select asp-for="VeteranStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.VeteranStatus>()" class="@inputClasses">
                     </select>
                     <span asp-validation-for="VeteranStatus" class="text-red-600"></span>
                 </div>
@@ -121,7 +121,7 @@
                 <!-- Basij Status -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">نوع بسیجی</label>
-                    <select asp-for="BasijStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.BasijStatus>()" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500">
+                    <select asp-for="BasijStatus" asp-items="Html.GetEnumSelectList<fDSignUp.Models.BasijStatus>()" class="@inputClasses">
                     </select>
                     <span asp-validation-for="BasijStatus" class="text-red-600"></span>
                 </div>
@@ -129,14 +129,14 @@
                 <!-- Service Reduction Duration -->
                 <div>
                     <label class="block mb-2 text-gray-800 font-bold text-right">مدت زمان کسری</label>
-                    <input type="number" asp-for="ServiceReductionDuration" placeholder="مدت زمان کسری به روز" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="number" asp-for="ServiceReductionDuration" placeholder="مدت زمان کسری به روز" class="@inputClasses" />
                     <span asp-validation-for="ServiceReductionDuration" class="text-red-600"></span>
                 </div>
 
                 <!-- Upload Photo -->
                 <div class="md:col-span-2">
                     <label class="block mb-2 text-gray-800 font-bold text-right">محل الصاق عکس</label>
-                    <input type="file" asp-for="Photo" class="w-full border-gray-300 rounded-md shadow-sm text-right py-3 px-4 transition-transform focus:transform focus:scale-105 focus:border-red-500" />
+                    <input type="file" asp-for="Photo" class="@inputClasses" />
                     <span asp-validation-for="Photo" class="text-red-600"></span>
                 </div>
             </div>
@@ -147,30 +147,45 @@
                     ارسال
                 </button>
             </div>
-        </form>
-    </div>
-</body>
-
-<!-- Initialize Persian Datepicker and Convert Number Inputs to Persian Digits -->
-<script>
-    $(document).ready(function () {
-        // Use Persian datepicker for the Birth Date
-        $("#birthDatePicker").persianDatepicker({
-            format: 'YYYY/MM/DD',
-            initialValue: false,
-            autoClose: true
-        });
-
-        // Convert Number Inputs to Persian Digits
-        function convertToPersianDigits(input) {
-            var persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-            return input.replace(/[0-9]/g, function (w) {
-                return persianDigits[w];
-            });
         }
+    </div>
 
-        $('#nationalId, #mobileNumber, #homePhoneNumber').on('input', function () {
-            $(this).val(convertToPersianDigits($(this).val()));
+    <!-- Initialize Kama Datepicker and Convert Number Inputs to Persian Digits -->
+    <script>
+        $(document).ready(function () {
+            kamaDatepicker('birthDatePicker', {
+                placeholder: "تاریخ تولد", // Optional placeholder text
+                twodigit: true,
+                closeAfterSelect: true,
+                nextButtonIcon: "fa fa-arrow-circle-right", // Example icon (font-awesome)
+                previousButtonIcon: "fa fa-arrow-circle-left", // Example icon (font-awesome)
+                forceFarsiDigits: true, // If you want the digits to be in Persian
+                sync: true,
+                markToday: true,
+                markHolidays: true,
+                highlightSelectedDay: true,
+                gotoToday: true,
+                pastYearsCount: 100, // How far back the years should go
+                futureYearsCount: 0,  // How far forward the years should go
+            });
         });
-    });
-</script>
+
+            // Convert Number Inputs to Persian Digits using replace method
+            function convertToPersianDigits(input) {
+                return input.replace(/\d/g, function (digit) {
+                    return '۰۱۲۳۴۵۶۷۸۹'[digit];
+                });
+            }
+
+            // Apply Persian digit conversion to specified fields
+            $('#nationalId, #mobileNumber, #homePhoneNumber').on('input change', function () {
+                $(this).val(convertToPersianDigits($(this).val()));
+            });
+
+            // Apply the conversion on form load (useful if inputs have initial values)
+            $('#nationalId, #mobileNumber, #homePhoneNumber').each(function () {
+                $(this).val(convertToPersianDigits($(this).val()));
+            });
+        });
+    </script>
+</body>
